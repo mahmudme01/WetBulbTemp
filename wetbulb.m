@@ -24,7 +24,7 @@ clear all
 
 
 filenamehourly='419220-99999-2020_tejgaon_Dhaka2.txt';
-TempIN=20; % A fixed indoor temp
+TempIN=21; % A fixed indoor temp
 
 
 % % Read data and discard garbage values. Store them in respective format
