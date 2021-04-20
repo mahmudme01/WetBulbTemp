@@ -23,8 +23,8 @@ clc
 clear all
 
 
-filenamehourly='419220-99999-2021_tejgaon_BGD.txt';
-TempIN=21; % A fixed indoor temp
+filenamehourly='419220-99999-2020_tejgaon_Dhaka2.txt';
+TempIN=20; % A fixed indoor temp
 
 
 % % Read data and discard garbage values. Store them in respective format
@@ -43,6 +43,12 @@ while ischar(tline)
     Date1= extractBefore(Date0,9);
     Date(i)=str2num(Date1);
     clear Date0 Date1
+    
+    %read time 
+    Time0 = extractAfter(tline,23);
+    Time1= extractBefore(Time0,5);
+    Time(i)=str2num(Time1);
+    clear Time0 Time1
     
     %read Temp 
     Temp0 = extractAfter(tline,87);
@@ -92,6 +98,7 @@ Temp(m)=[];
 Tflag(m)=[];
 DPflag(m)=[];
 Date(m)=[];
+Time(m)=[];
 Stn(m)=[];
 DP(m)=[];
 Pr(m)=[];
@@ -101,6 +108,7 @@ m=find(Tflag~=5&Tflag~=1);
 Temp(m)=[];
 DPflag(m)=[];
 Date(m)=[];
+Time(m)=[];
 Stn(m)=[];
 DP(m)=[];
 Pr(m)=[];
@@ -110,6 +118,7 @@ m=find(DP>100);
 Temp(m)=[];
 DPflag(m)=[];
 Date(m)=[];
+Time(m)=[];
 Stn(m)=[];
 DP(m)=[];
 Pr(m)=[];
@@ -118,11 +127,19 @@ clear m
 m=find(DPflag~=5&DPflag~=1);
 Temp(m)=[];
 Date(m)=[];
+Time(m)=[];
 Stn(m)=[];
 DP(m)=[];
 Pr(m)=[];
 fclose(fid);
 clear m i fid tline ans
+
+% ttt=find(Time<=abs(100*timezone(tt))|Time>=abs(100*timezone(tt))+800);
+%     Temp(ttt)=[];
+%     Time(ttt)=[];
+%     Date(ttt)=[];
+%     %Stn(m)=[];
+%     DP(ttt)=[];
 
 Date2=datetime(Date,'ConvertFrom','yyyymmdd');
 Temp_A=Temp.'; % Transposing Average Temperature
@@ -184,6 +201,8 @@ while(n<=size(Temp,2)-1)
     wHoutstddev(k)=std(TwOut(j:n-1)); % WetBulb Outside Std Dev
     wHin2Mean(k)=mean(TwIN_A(j:n-1));  % WetBulb Inside Mean Rony Bhai Method
     wHin2stddev(k)=std(TwIN_A(j:n-1)); % WetBulb Inside Std Dev Rony Bhai Method
+    rhM(k)=mean(rh(j:n-1));
+    rhS(k)=std(rh(j:n-1));
     Dmean(k)=mean(Date_A(j:n-1));
     count(k)=size(Temp(j:n-1),2);
     k=k+1;
@@ -193,16 +212,42 @@ unreliabel_days=find(count<20);
 
 Dmean2 = Dmean.';         % Transposing Date
 
-
+%Outdoor
 bubblechart(Dmean2,wHoutMean,wHoutstddev,'blue');
 bubblesize([1 10]);
 hold on
-%bubblechart(Dmean2,wHin2Mean,wHin2stddev,'red');
-%legend('Outdoor ','Indoor', 'FontSize',12)
+%plot(Dmean2,wHoutMean,'--','color',[0 0 1]);
+%yyaxis left
+ylabel('Wet Bulb Temperature, C')
+
+%Outdoor all data
+%  hold on
+ plot(Date_A,TwOut,'|b');
+ plot(Date_A,TwIN_A,'|r');
+
+
+% hold on
+% bubblechart(Dmean2,rhM,rhS,'blue');
+% bubblesize([1 10]);
+% %yyaxis right
+% ylabel('relative humidity, %')
+% plot(Date_A,rh,'|g');
+
+% hold on
+% bubblechart(Dmean2,TempM,TempS,'red');
+% bubblesize([1 10]);
+% %yyaxis right
+% ylabel('Outdoor Temperature, C')
+
+%Indoor
+bubblechart(Dmean2,wHin2Mean,wHin2stddev,'red');
 bubblesize([1 10]);
-plot(Dmean2,wHoutMean,'--','color',[0 0 1]);
+%plot(Dmean2,wHin2Mean,'--','color',[1 0 0]);
+legend('Outdoor','','Indoor','','FontSize',12)
+bubblesize([1 10]);
+
 %plot(Dmean2,wHin2Mean,'--','color',[1 0 0]);
 
-title('Name as your suitable title')
-ylabel('Wet Bulb Temperature, C')
+%title('Name as your suitable title')
+
 bubblelegend('Standard deviation, C','Location','eastoutside')
