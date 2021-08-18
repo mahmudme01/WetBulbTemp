@@ -4,8 +4,8 @@
 % article: https://www.researchgate.net/publication/349119706_Critical_wet_bulb_temperature_modulates_COVID-19_cases
 
 % While outdoor wet bulb temperature is accurate (approximate at high precision), indoor wet bulb temp is
-% interpolated from outdoor weather condition (temperature and dew point temperature). This interpolation may not work for other countries due to
-% differences in living condition. This interpolation is also erroneous
+% calculated from outdoor weather condition (temperature and dew point temperature). This calculation may not work for other countries due to
+% differences in living condition. This calculation is also erroneous
 % during summer due to cooling effect caused by indoor AC.
 
 % Weather data needs to be downloaded from here: ftp://ftp.ncdc.noaa.gov/pub/data/noaa/2021/
@@ -14,7 +14,7 @@
 % Code formulation and writing: Md Mahmudur Rahman and Ahmed Islam,
 % University of Louisville, USA.
 
-% for contact: email:  mrahman@udel.edu , twitter: @mahmudme01 [please let me know if you find any error]
+% for contact: email:  m.rahman@louisville.edu , twitter: @mahmudme01 [please let me know if you find any error]
 
 % indoor temp is considered as 21C
 
