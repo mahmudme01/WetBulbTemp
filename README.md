@@ -1,6 +1,7 @@
 You will have to download weather data from this site:
 
 ftp://ftp.ncdc.noaa.gov/pub/data/noaa/2020/
+
 ftp://ftp.ncdc.noaa.gov/pub/data/noaa/2021/
 
 Rest, you will have to generate a couple of files. Follow the code (wbt_vs_percent_increase). All supported files are stored here.
