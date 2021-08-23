@@ -22,7 +22,9 @@ StateNameInput='Alabama';
 % *************************************************************************
 % -------------------------------------------------------------------------
 
-fid=fopen('us-counties.txt'); %update file and delete the header
+fid=fopen('us-counties.txt'); %save the file from the following site, delete the header and save it as us-counties.txt
+  %https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv
+
 NYCA=textscan(fid,'%s %s %s %f %f %f','delimiter',',');
 fclose(fid);
 ny1=NYCA{1}; % date
